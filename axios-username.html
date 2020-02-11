@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>JQuery and JSON Placeholder: API Photos</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <!--AXIOS-->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	
+<style>
+
+	#shade {background-color:#AEB0B0; height:250px;}
+	}
+	
+</style>	
+	
+	
+</head>
+<body>
+
+<div class="container">
+	<div class="col-4">
+		<ul>
+			<li class="name"></li>
+		</ul>
+		
+	
+	</div>
+	<div class="col-8" id="shade">
+		<div id="username"></div>
+		<div id="email"></div>
+		<div class="address">
+			<div id="street"></div>
+			<div id="suite"></div>
+			<div id="city"></div>
+			<div id="zipcode"></div>
+			<div class="geolocation">
+				<div id="lat"></div>
+				<div id="lng"></div>
+			</div>
+		</div>	
+	</div>
+	
+  <!--<h2>List of Photos</h2>
+              
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Title</th>
+		<th>URL</th>
+        <th>Thumbnail</th>
+      </tr>
+    </thead>
+    <tbody id="bucket">
+      
+    </tbody>
+  </table>
+</div>-->
+
+</body>
+
+<script>
+	
+	let users = []
+	
+	$(document).ready(function(){
+		axios.get('https://jsonplaceholder.typicode.com/users').then(function(res){
+		
+		users = res.data
+					
+		let html = ""
+						
+		for (let i = 0; i < users.length; i++) {
+			
+			html += `<li onclick="populate(${i})">
+						${users[i].name}
+							
+					</li>`
+		
+		}
+				
+		$("#users").append(html)
+				
+		})
+	});
+	
+	function populate(index) {
+		
+		$("#name").text(users[index].username)$("#username").text(users[index].username)
+		$("#email").text(users[index].email)
+		$("#phone").text(users[index].phone)
+		$("#apt").text(users[index].address.suite)		$("#street").text(users[index].address.street)		$("#city").text(users[index].address.city)		$("#zipcode").text(users[index].address.zipcode)
+		
+		var web = `<a href="http//${users[index].website}" target=_blank>${users[index].website}`
+		
+		${"#website"}.html(web)
+	}
+</script>
+
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>JQuery and JSON Placeholder: API Photos</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <!--AXIOS-->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h2 style="text-align:center;">List of Photos</h2>
+  <img src="img/car.jfif" id="img1" style="align:center;">
+              
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Title</th>
+		<th>URL</th>
+        <th>Thumbnail</th>
+      </tr>
+    </thead>
+    <tbody id="bucket">
+      
+    </tbody>
+  </table>
+</div>
+
+</body>
+
+<script>
+	$(document).ready(function(){
+		let photos = []
+		axios.get('https://jsonplaceholder.typicode.com/photos').then(function(response){
+		
+		photos = response.data
+					
+		let html = ""
+						
+		for (let i = 0; i < photos.length; i++) {
+			
+			html += `<tr>
+						<td>${photos[i].id}</td>
+						<td>${photos[i].title}</td>
+						<td><img src="${photos[i].url}" id="img1" height="80px" width="80px"></td>
+						<td><img src="${photos[i].thumbnailUrl}" height="80px" width="80px"</td>
+					  </tr>`
+		
+		}
+				
+		$("#bucket").append(html)
+				
+		});
+		
+		$("#img1").click(function(){
+			
+			$(this).css({
+				height:"150",
+				width:"300",
+			})
+			
+			$(this).hide(2000)
+			$(this).show(1000)
+			
+			
+		});
+	});
+</script>
+
+</html>
